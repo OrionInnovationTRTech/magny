@@ -15,10 +15,6 @@ const servers = {
 const peerConnection = new RTCPeerConnection(servers);
 
 
-export function createOffer() {
-
-}
-
 export async function startLocalCamera() {
     let localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
 
@@ -35,12 +31,14 @@ export async function startLocalCamera() {
 export async function getRemoteCamera() {
     let remoteStream = new MediaStream();
 
+    // Get tracks from the peerConnection
     peerConnection.ontrack = event => {
         event.streams[0].getTracks().forEach( track => {
             remoteStream.addTrack(track);
         })
     }
 
+    // Add stream to remote video element
     const remoteVideo = document.querySelector('#remoteVideo') as HTMLVideoElement;
     remoteVideo.srcObject = remoteStream;
 }
