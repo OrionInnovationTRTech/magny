@@ -57,6 +57,11 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+button:disabled {
+  background-color: #331026;
+  color: #BAB1A8;
+}
+
 #videos {
   display: flex;
   align-items: center;
@@ -85,6 +90,7 @@ input {
   font-weight: 500;
   font-family: inherit;
   background-color: #570530;
+  color: beige;
   transition: border-color 0.25s;
 }
 
