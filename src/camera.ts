@@ -33,6 +33,4 @@ export async function getRemoteCamera() {
     // Add stream to remote video element
     const remoteVideo = document.querySelector('#remoteVideo') as HTMLVideoElement;
     remoteVideo.srcObject = remoteStream;
-
-    console.log(peerConnection.localDescription);
 }
