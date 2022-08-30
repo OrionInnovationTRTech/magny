@@ -1,6 +1,6 @@
 import './style.css'
 
-import { startLocalCamera, getRemoteCamera } from './connect';
+import { startLocalCamera, getRemoteCamera } from './camera';
 
 const cameraButton = document.querySelector('#webcamButton') as HTMLButtonElement;
 
