@@ -1,6 +1,7 @@
 import './style.css'
 
 import { startLocalCamera, getRemoteCamera } from './camera';
+import { createOffer } from './connect';
 
 const cameraButton = document.querySelector('#webcamButton') as HTMLButtonElement;
 
@@ -8,4 +9,11 @@ const cameraButton = document.querySelector('#webcamButton') as HTMLButtonElemen
 cameraButton.addEventListener('click', async () => {
     await startLocalCamera();
     await getRemoteCamera();
+})
+
+const callButton = document.querySelector('#callButton') as HTMLButtonElement;
+
+// start the call when offer is created
+callButton.addEventListener('click', async () => {
+    await createOffer();
 })
