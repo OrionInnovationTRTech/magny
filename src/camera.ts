@@ -11,6 +11,13 @@ export async function startLocalCamera() {
     // Add stream to local video element
     const localVideo = document.querySelector('#localVideo') as HTMLVideoElement;
     localVideo.srcObject = localStream;
+
+    // Enable buttons
+    const callButton = document.querySelector('#callButton') as HTMLButtonElement;
+    const answerButton = document.querySelector('#answerButton') as HTMLButtonElement;
+
+    callButton.disabled = false;
+    answerButton.disabled = false;
 }
 
 export async function getRemoteCamera() {
