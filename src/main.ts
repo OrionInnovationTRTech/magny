@@ -1,7 +1,7 @@
 import './style.css'
 
 import { startLocalCamera, getRemoteCamera } from './camera';
-import { createOffer, answerCall } from './connect';
+import { createOffer, answerCall, peerConnection } from './connect';
 
 const cameraButton = document.querySelector('#webcamButton') as HTMLButtonElement;
 
@@ -29,3 +29,17 @@ answerButton.addEventListener('click', async () => {
         await answerCall(offerInput.value);
     }
 })
+
+// Hang up //
+export function hangUp() {
+    peerConnection.close();
+
+    const remoteVideo = document.querySelector('#remoteVideo') as HTMLVideoElement;
+    remoteVideo.srcObject = null;
+
+    hangUpButton.disabled = true;
+}
+
+const hangUpButton = document.querySelector('#hangUpButton') as HTMLButtonElement;
+
+hangUpButton.addEventListener('click', hangUp)

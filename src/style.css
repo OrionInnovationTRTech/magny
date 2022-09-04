@@ -60,6 +60,7 @@ button:focus-visible {
 button:disabled {
   background-color: #331026;
   color: #BAB1A8;
+  border: transparent;
 }
 
 #videos {

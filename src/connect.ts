@@ -10,6 +10,19 @@ const servers = {
 
 export const peerConnection = new RTCPeerConnection(servers);
 
+import { hangUp } from './main';
+
+// Event listener for connection state
+peerConnection.onconnectionstatechange = () => {
+    switch(peerConnection.connectionState) {
+        case 'connected':
+            const hangUpButton = document.getElementById('hangUpButton') as HTMLButtonElement
+            hangUpButton.disabled = false;
+            break;
+        case 'disconnected':
+            hangUp()
+    }
+}
 
 // Firebase
 import { initializeApp } from 'firebase/app';
