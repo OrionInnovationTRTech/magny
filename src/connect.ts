@@ -2,10 +2,7 @@ const servers = {
     iceServers : [
         {
             urls: [ 'stun:stun.l.google.com:19302', 
-                    'stun:stun1.l.google.com:19302', 
-                    'stun:stun2.l.google.com:19302', 
-                    'stun:stun3.l.google.com:19302', 
-                    'stun:stun4.l.google.com:19302' ]
+                    'stun:stun1.l.google.com:19302']
         }
     ],
     iceCandidatePoolSize: 10
@@ -90,6 +87,60 @@ export async function createOffer() {
             if (change.type === 'added') {
                 const newCandidate = new RTCIceCandidate(change.doc.data())
                 peerConnection.addIceCandidate(newCandidate)
+            }
+        })
+    })
+}
+
+// Answer the incoming call
+export async function answerCall(callID: string) {
+    // Get call document
+    const callDoc = doc(firestore, 'calls', callID)
+
+    // References to candidates
+    const answerCandidates = collection(callDoc, 'answerCandidates')
+    const offerCandidates = collection(callDoc, 'offerCandidates')
+
+    // Listen for candidates
+    peerConnection.onicecandidate = event => {
+        const { candidate } = event
+
+        if (candidate) {
+            // Add candidate to answerCandidates collection
+            addDoc(answerCandidates, candidate?.toJSON())
+        }
+    }
+
+    // Get SDP data from incoming call
+    const incomingCall = (await getDoc(callDoc)).data()
+
+    // Set offer as remote description
+    const offerDescription = incomingCall?.offerSDP
+    await peerConnection.setRemoteDescription(new RTCSessionDescription(offerDescription))
+
+    // Create an answer in response to the offer
+    const answerDescription = await peerConnection.createAnswer()
+    await peerConnection.setLocalDescription(answerDescription)
+
+    // Create answer SDP
+    const answerSDP = {
+        type: answerDescription.type,
+        sdp: answerDescription.sdp
+    }
+
+    // Add answer SDP to Firestore
+    await updateDoc(callDoc, { answerSDP })
+
+    // Listen for remote ICE candidates
+    onSnapshot(offerCandidates, snapshot => {
+        // Track changes in the offer collection
+        snapshot.docChanges().forEach(change => {
+
+            // If there is a new candidate, add it to the peerConnection
+            if (change.type === 'added') {
+                const newCandidate = new RTCIceCandidate(change.doc.data())
+                peerConnection.addIceCandidate(newCandidate)
+                // Add these candidates to peerConnection
             }
         })
     })
