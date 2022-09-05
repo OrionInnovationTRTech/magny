@@ -130,6 +130,7 @@ input {
   overflow-y: scroll;
   height: 20em;
   align-items: flex-start;
+  justify-content: flex-end;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
