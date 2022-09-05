@@ -2,6 +2,7 @@ import './style.css'
 
 import { startLocalCamera, getRemoteCamera } from './camera';
 import { createOffer, answerCall, peerConnection } from './connect';
+import { answerTextChannel, createTextChannel } from './text';
 
 const cameraButton = document.querySelector('#webcamButton') as HTMLButtonElement;
 
@@ -16,6 +17,8 @@ const callButton = document.querySelector('#callButton') as HTMLButtonElement;
 
 // start the call when offer is created
 callButton.addEventListener('click', async () => {
+    await createTextChannel();
+
     await createOffer();
 })
 
@@ -26,6 +29,8 @@ const answerButton = document.querySelector('#answerButton') as HTMLButtonElemen
 // Answer the call if offerID is provided
 answerButton.addEventListener('click', async () => {
     if (offerInput.value) {
+        await answerTextChannel();
+
         await answerCall(offerInput.value);
     }
 })
