@@ -1,7 +1,7 @@
 import './style.css'
 
 import { startLocalCamera, getRemoteCamera } from './camera';
-import { createOffer, answerCall, peerConnection } from './connect';
+import { createOffer, answerCall, resetConnection } from './connect';
 import { answerTextChannel, createTextChannel } from './text';
 
 const cameraButton = document.querySelector('#webcamButton') as HTMLButtonElement;
@@ -37,11 +37,36 @@ answerButton.addEventListener('click', async () => {
 
 // Hang up //
 export function hangUp() {
-    peerConnection.close();
+    resetConnection();
 
+    // Disable chat controls
+    const messageInput = document.querySelector("#messageInput") as HTMLInputElement;
+    const sendMessage = document.querySelector("#sendMessage") as HTMLButtonElement;
+
+    messageInput.disabled = true;
+    sendMessage.disabled = true;
+
+    // Clear chat
+    const chatBox = document.querySelector('#chat-box');
+    chatBox!.innerHTML = '';
+
+    // Clear offer input
+    offerInput.value = '';
+
+    // Disable buttons
+    callButton.disabled = true;
+    answerButton.disabled = true;
+
+    // Enable camera button
+    cameraButton.disabled = false;
+
+    // Clear video elements
+    const localVideo = document.querySelector('#localVideo') as HTMLVideoElement;
     const remoteVideo = document.querySelector('#remoteVideo') as HTMLVideoElement;
+    localVideo.srcObject = null;
     remoteVideo.srcObject = null;
 
+    // Disable the hang up button
     hangUpButton.disabled = true;
 }
 
