@@ -130,8 +130,6 @@ input {
   flex-direction: column;
   overflow-y: scroll;
   height: 20em;
-  align-items: flex-start;
-  justify-content: flex-end;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -146,7 +144,7 @@ input {
   padding: 0em 1em;
   transition: border-color 0.25s;
   margin: 0.25em;
-  max-width: 20ch;
+  max-width: 22ch;
   text-align: left;
   vertical-align: top;
   word-break: break-all;

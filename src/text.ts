@@ -57,14 +57,30 @@ function openTextChannel(textChannel: RTCDataChannel) {
 
     // Enable chat controls
     messageInput.disabled = false;
-    sendMessage.disabled = false;
+    
+    messageInput.addEventListener('keyup', () => {
+        if (messageInput.value.length > 0) {
+            sendMessage.disabled = false;
+        }
+        else {
+            sendMessage.disabled = true;
+        }
+    })
 
-    // Send message
-    sendMessage.addEventListener("click", () => {
+    function sendMessageHandler() {
         const message = messageInput.value;
         textChannel.send(message);
-
         createBubble(message, true);
         messageInput.value = "";
-    })
+
+        sendMessage.disabled = true;
+    }
+
+    const chatForm = document.querySelector('#chatForm') as HTMLFormElement;
+
+    // Send message
+    chatForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        sendMessageHandler();
+    });
 }
