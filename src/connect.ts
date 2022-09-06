@@ -8,25 +8,13 @@ const servers = {
     iceCandidatePoolSize: 10
 }
 
-export const peerConnection = new RTCPeerConnection(servers);
-
-import { hangUp } from './main';
-
-// Event listener for connection state
-peerConnection.onconnectionstatechange = () => {
-    switch(peerConnection.connectionState) {
-        case 'connected':
-            const hangUpButton = document.getElementById('hangUpButton') as HTMLButtonElement
-            hangUpButton.disabled = false;
-            break;
-        case 'disconnected':
-            hangUp()
-    }
-}
+export let peerConnection = new RTCPeerConnection(servers);
+trackConnection(peerConnection);
 
 // Firebase
 import { initializeApp } from 'firebase/app';
 import { getFirestore, doc, getDoc, getDocs, query, collection, addDoc, updateDoc, deleteDoc, onSnapshot } from  'firebase/firestore'
+import { hangUp } from './main';
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -157,4 +145,24 @@ export async function answerCall(callID: string) {
             }
         })
     })
+}
+
+export function resetConnection() {
+    peerConnection.close()
+    peerConnection = new RTCPeerConnection(servers)
+    trackConnection(peerConnection)
+}
+
+function trackConnection(peerConnection: RTCPeerConnection) {
+    // Event listener for connection state
+    peerConnection.onconnectionstatechange = () => {
+        switch(peerConnection.connectionState) {
+            case 'connected':
+                const hangUpButton = document.getElementById('hangUpButton') as HTMLButtonElement
+                hangUpButton.disabled = false;
+                break;
+            case 'disconnected':
+                hangUp()
+        }
+    }
 }
