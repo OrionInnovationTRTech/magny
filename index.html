@@ -33,10 +33,11 @@
     
           <div class="controls">
             <p>Make a call</p>
-            <button disabled id="callButton"><i class="fa-solid fa-envelope"></i></button>
+            <!-- TODO: disable -->
+            <button  id="callButton"><i class="fa-solid fa-envelope"></i></button>
     
             <p>Answer the call</p>
-            <button disabled id="answerButton"><i class="fa-solid fa-phone"></i></button>
+            <button  id="answerButton"><i class="fa-solid fa-phone"></i></button>
           </div>
     
           <input type="text" id="offerInput">
@@ -49,13 +50,15 @@
 
         <div id="chat">
           <h2>Chat</h2>
-          <div id="chat-box" class="controls">
-            
+          <div id="chat-box">
+
           </div>
     
           <div class="controls">
-            <input disabled type="text" id="messageInput">
-            <button disabled id="sendMessage"><i class="fa-solid fa-paper-plane"></i></button>
+            <form action="" id="chatForm">
+              <input disabled type="text" id="messageInput" required>
+              <button disabled id="sendMessage"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
           </div>
 
         </div>
