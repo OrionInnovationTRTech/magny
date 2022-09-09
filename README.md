@@ -9,6 +9,7 @@ Magny is a demo project designed to show what WebRTC can do. It has three main f
 This project is built in tutorial series called *WebRTC Demystified*. To learn more, check out the tutorial series from here:
 
 > [WebRTC Demystified - Introduction](https://medium.com/@furkancanbaytemur/webrtc-demystified-introduction-dcd826368e8)
+
 > [WebRTC Demystified - Signaling Demo](https://medium.com/orion-innovation-turkey/webrtc-signaling-demo-36722cdd9d97)
 
 ## Build
