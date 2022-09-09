@@ -3,7 +3,7 @@ import './style.css'
 import { startLocalCamera, getRemoteCamera } from './camera';
 import { createOffer, answerCall, resetConnection } from './connect';
 import { answerTextChannel, createTextChannel } from './text';
-import { dragAndDrop } from './file';
+import { dragAndDrop } from './drag';
 
 const cameraButton = document.querySelector('#webcamButton') as HTMLButtonElement;
 dragAndDrop()

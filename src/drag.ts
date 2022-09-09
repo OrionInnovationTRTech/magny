@@ -30,22 +30,35 @@ export function dragAndDrop() {
 
     // Handle select
     chooseFile.addEventListener('click', handleSelect, false)
+
+    // Handle input
+    fileInput.addEventListener('change', handleInput, false)
 }
 
 function handleDrop(event: DragEvent) {
     const data = event.dataTransfer
     const files = data?.files
 
-    // Assign file to global variable
-    file = files![0]
-    console.log(file);
-
-    const fileName = document.querySelector('#fileName') as HTMLParagraphElement;
-    fileName.innerText = file.name;    
+    storeFile(files!);
 }
 
 function handleSelect() {
     fileInput.click();
+}
+
+function handleInput() {
+    const files = fileInput.files;
+
+    storeFile(files!);
+}
+
+function storeFile(files: FileList) {
+    // Assign file to global variable
+    file = files[0];
+    console.log(file);
+
+    const fileName = document.querySelector('#fileName') as HTMLParagraphElement;
+    fileName.innerText = file.name;
 }
 
 function preventDefaults(e: Event) {
