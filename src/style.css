@@ -179,6 +179,12 @@ input {
   padding: 0.1em;
 }
 
+#dropArea p {
+  margin: 0;
+  font-weight: 600;
+  color: #FEF5AC;
+}
+
 #dropArea a:hover {
   text-decoration: underline;
   cursor: pointer;

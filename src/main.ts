@@ -3,8 +3,10 @@ import './style.css'
 import { startLocalCamera, getRemoteCamera } from './camera';
 import { createOffer, answerCall, resetConnection } from './connect';
 import { answerTextChannel, createTextChannel } from './text';
+import { dragAndDrop } from './file';
 
 const cameraButton = document.querySelector('#webcamButton') as HTMLButtonElement;
+dragAndDrop()
 
 // Start the camera when the button is clicked
 cameraButton.addEventListener('click', async () => {
