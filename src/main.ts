@@ -4,6 +4,7 @@ import { startLocalCamera, getRemoteCamera } from './camera';
 import { createOffer, answerCall, resetConnection } from './connect';
 import { answerTextChannel, createTextChannel } from './text';
 import { dragAndDrop } from './drag';
+import { answerFileChannel, createFileChannel } from './file';
 
 const cameraButton = document.querySelector('#webcamButton') as HTMLButtonElement;
 dragAndDrop()
@@ -20,6 +21,7 @@ const callButton = document.querySelector('#callButton') as HTMLButtonElement;
 // start the call when offer is created
 callButton.addEventListener('click', async () => {
     await createTextChannel();
+    await createFileChannel();
 
     await createOffer();
 })
@@ -32,6 +34,7 @@ const answerButton = document.querySelector('#answerButton') as HTMLButtonElemen
 answerButton.addEventListener('click', async () => {
     if (offerInput.value) {
         await answerTextChannel();
+        await answerFileChannel();
 
         await answerCall(offerInput.value);
     }

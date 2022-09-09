@@ -33,10 +33,10 @@
     
           <div class="controls">
             <p>Make a call</p>
-            <button disabled id="callButton"><i class="fa-solid fa-envelope"></i></button>
+            <button  id="callButton"><i class="fa-solid fa-envelope"></i></button>
     
             <p>Answer the call</p>
-            <button disabled id="answerButton"><i class="fa-solid fa-phone"></i></button>
+            <button  id="answerButton"><i class="fa-solid fa-phone"></i></button>
           </div>
     
           <input type="text" id="offerInput">
@@ -61,15 +61,13 @@
           </div>
 
           <div id="dropArea" class="controls">
-            <form>
-              <div id="dragArea">
-                <h3><a id="chooseFile">Choose</a> or Drag & Drop</h3>
-                <p id="fileName"> </p>
-                <input type="file" id="fileInput" required>
-                <button disabled id="sendFile"><i class="fa-solid fa-file-upload"></i></button>
-                <svg id="loadingBar"></svg>
-              </div>
-            </form>
+            <div id="dragArea">
+              <h3><a id="chooseFile">Choose</a> or Drag & Drop</h3>
+              <p id="fileName"> </p>
+              <input type="file" id="fileInput">
+              <button disabled id="sendFile"><i class="fa-solid fa-file-upload"></i></button>
+              <svg id="loadingBar"></svg>
+            </div>
           </div>
 
         </div>
