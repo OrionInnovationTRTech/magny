@@ -179,6 +179,11 @@ input {
   padding: 0.1em;
 }
 
+#dropArea a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 #loadingBar {
   height: 2em;
 }
