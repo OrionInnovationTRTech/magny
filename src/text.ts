@@ -1,4 +1,5 @@
 import { peerConnection } from "./connect";
+import { answerFileChannel } from "./file";
 
 // For initiator of the call
 export async function createTextChannel() {
@@ -15,17 +16,22 @@ export async function createTextChannel() {
     }
 }
 
-export async function answerTextChannel() {
+export async function answerDataChannel() {
     peerConnection.ondatachannel = event => {
-        const textChannel = event.channel;
+        console.log(event.channel);
 
-        if (textChannel.label === "textChannel") {
+        if (event.channel.label === "textChannel") {
+            const textChannel = event.channel;
+
             openTextChannel(textChannel);
 
             textChannel.onmessage = event => {
                 console.log("Message received: ", event.data);
                 createBubble(event.data, false);
             }
+        }
+        else if (event.channel.label === "fileChannel") {
+            answerFileChannel(event.channel);
         }
     }
 }

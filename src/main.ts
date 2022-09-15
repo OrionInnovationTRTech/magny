@@ -2,11 +2,10 @@ import './style.css'
 
 import { startLocalCamera, getRemoteCamera } from './camera';
 import { createOffer, answerCall, resetConnection } from './connect';
-import { answerTextChannel, createTextChannel } from './text';
-import { dragAndDrop } from './drag';
+import { answerDataChannel, createTextChannel } from './text';
+import { createFileChannel } from './file';
 
 const cameraButton = document.querySelector('#webcamButton') as HTMLButtonElement;
-dragAndDrop()
 
 // Start the camera when the button is clicked
 cameraButton.addEventListener('click', async () => {
@@ -20,6 +19,7 @@ const callButton = document.querySelector('#callButton') as HTMLButtonElement;
 // start the call when offer is created
 callButton.addEventListener('click', async () => {
     await createTextChannel();
+    await createFileChannel();
 
     await createOffer();
 })
@@ -31,7 +31,7 @@ const answerButton = document.querySelector('#answerButton') as HTMLButtonElemen
 // Answer the call if offerID is provided
 answerButton.addEventListener('click', async () => {
     if (offerInput.value) {
-        await answerTextChannel();
+        await answerDataChannel();
 
         await answerCall(offerInput.value);
     }
