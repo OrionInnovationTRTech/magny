@@ -1,4 +1,5 @@
 import { peerConnection } from "./connect";
+import { dragAndDrop } from "./drag";
 
 export let fileChannel: RTCDataChannel;
 
@@ -10,27 +11,28 @@ export async function createFileChannel() {
     fileChannel.onbufferedamountlow = null;
 
     fileChannel.onopen = () => {
-        console.log("File channel opened");
+        openFileChannel()
     }
 
-    fileChannel.onmessage = (event) => {
-        console.log("File received: ", event.data);
+}
+
+export async function answerFileChannel(channel: RTCDataChannel) {
+    fileChannel = channel;
+
+    fileChannel.binaryType = "arraybuffer";
+    fileChannel.onbufferedamountlow = null;
+
+    fileChannel.onopen = () => {
+        openFileChannel();
     }
 }
 
-export async function answerFileChannel() {
-    peerConnection.ondatachannel = event => {
-        const fileChannel = event.channel;
+function openFileChannel() {
+    console.log("File channel opened");
 
-        fileChannel.binaryType = "arraybuffer";
-        fileChannel.onbufferedamountlow = null;
+    dragAndDrop()
 
-        if (fileChannel.label === "fileChannel") {
-            console.log("File channel opened");
-
-            fileChannel.onmessage = event => {
-                console.log("File received: ", event.data);
-            }
-        }
+    fileChannel.onmessage = event => {
+        console.log("File received: ", event.data);
     }
 }

@@ -38,7 +38,6 @@ export function dragAndDrop() {
 
     // Handle send
     sendFile.addEventListener('click', handleSend, false)
-    // TODO: answerer cannot send
 }
 
 function handleDrop(event: DragEvent) {
