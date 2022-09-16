@@ -15,16 +15,12 @@ export function dragAndDrop() {
 
     // Highligh when dragged over
     ;['dragenter', 'dragover'].forEach(eventName => {
-        dropArea.addEventListener(eventName, () => {
-            dropArea.classList.add('highlight')
-        })
+        dropArea.addEventListener(eventName, highlight, false)
     })
 
     // Remove highlight when dragged out
     ;['dragleave', 'drop'].forEach(eventName => {
-        dropArea.addEventListener(eventName, () => {
-            dropArea.classList.remove('highlight')
-        })
+        dropArea.addEventListener(eventName, unHighlight, false)
     })
 
     // Handle drop
@@ -40,30 +36,30 @@ export function dragAndDrop() {
     sendButton.addEventListener('click', handleSend, false)
 }
 
-function handleDrop(event: DragEvent) {
+export function handleDrop(event: DragEvent) {
     const data = event.dataTransfer
     const files = data?.files
 
     storeFile(files!);
 }
 
-function handleSelect() {
+export function handleSelect() {
     fileInput.click();
 }
 
-function handleInput() {
+export function handleInput() {
     const files = fileInput.files;
 
     storeFile(files!);
 }
 
-async function handleSend() {
+export async function handleSend() {
     console.log("Sending file: ", file);
 
     sendFile(file);
 }
 
-function storeFile(files: FileList) {
+export function storeFile(files: FileList) {
     // Assign file to global variable
     file = files[0];
     console.log(file);
@@ -75,7 +71,15 @@ function storeFile(files: FileList) {
     sendButton.disabled = false;
 }
 
-function preventDefaults(e: Event) {
+export function preventDefaults(e: Event) {
     e.preventDefault()
     e.stopPropagation()
+}
+
+export function highlight() {
+    dropArea.classList.add('highlight')
+}
+
+export function unHighlight() {
+    dropArea.classList.remove('highlight')
 }
