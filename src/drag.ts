@@ -1,9 +1,9 @@
-import { fileChannel } from "./file";
+import { sendFile } from "./file";
 
 const dropArea = document.querySelector('#dropArea') as HTMLDivElement;
 const chooseFile = document.querySelector('#chooseFile') as HTMLInputElement;
 const fileInput = document.querySelector('#fileInput') as HTMLInputElement;
-const sendFile = document.querySelector('#sendFile') as HTMLButtonElement;
+const sendButton = document.querySelector('#sendFile') as HTMLButtonElement;
 
 export let file : File;
 
@@ -37,7 +37,7 @@ export function dragAndDrop() {
     fileInput.addEventListener('change', handleInput, false)
 
     // Handle send
-    sendFile.addEventListener('click', handleSend, false)
+    sendButton.addEventListener('click', handleSend, false)
 }
 
 function handleDrop(event: DragEvent) {
@@ -60,7 +60,7 @@ function handleInput() {
 async function handleSend() {
     console.log("Sending file: ", file);
 
-    fileChannel.send(file.name);
+    sendFile(file);
 }
 
 function storeFile(files: FileList) {
@@ -72,7 +72,7 @@ function storeFile(files: FileList) {
     fileName.innerText = file.name;
 
     // Enable send button
-    sendFile.disabled = false;
+    sendButton.disabled = false;
 }
 
 function preventDefaults(e: Event) {
